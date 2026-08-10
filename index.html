@@ -83,12 +83,13 @@
 
             <!-- ДАШБОРД -->
             <section class="view is-active" id="view-dashboard" data-view="dashboard">
-                <header class="view-header">
-                    <div>
+                <div class="wallpaper-hero">
+                    <div class="wallpaper-overlay"></div>
+                    <div class="wallpaper-text">
                         <p class="eyebrow" id="dash-date">Сегодня</p>
                         <h1 id="dash-greeting">Добрый день</h1>
                     </div>
-                </header>
+                </div>
 
                 <div class="card progress-hero">
                     <p class="eyebrow">Прогресс дня</p>
@@ -300,6 +301,13 @@
                 <span>Статистика</span>
             </button>
         </nav>
+
+        <!-- Плавающая кнопка настроек — доступна на телефоне с любой страницы -->
+        <button class="settings-fab" id="settings-fab" data-view="settings" aria-label="Настройки">
+            <svg class="ic" viewBox="0 0 24 24">
+                <use href="#ic-settings"/>
+            </svg>
+        </button>
     </div>
 
     <div class="modal-backdrop" id="modal-backdrop">
