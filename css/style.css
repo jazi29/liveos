@@ -23,8 +23,9 @@
   --radius-lg: 14px;
   --radius-md: 10px;
   --radius-sm: 8px;
-  --font-display: 'Sora', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
+  --shadow: 0 1px 2px rgba(0,0,0,.24), 0 4px 14px rgba(0,0,0,.18);
+  --font-display: 'Manrope', system-ui, sans-serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
   color-scheme: dark;
 }
@@ -38,11 +39,17 @@ body{
   font-family:var(--font-body);
   -webkit-font-smoothing:antialiased;
 }
-h1,h2,h3{font-family:var(--font-display); margin:0; letter-spacing:-.01em; font-weight:600;}
+h1,h2,h3{font-family:var(--font-display); margin:0; letter-spacing:-.015em; font-weight:700;}
 p{margin:0;}
 button{font-family:inherit;}
 .mono{font-family:var(--font-mono);}
 .muted{color:var(--muted); font-size:.9rem;}
+button, .qa-btn, .nav-item, .bn-item, .sheet-item, .task-check, .mini-check, .heat-cell, .cal-cell, .icon-btn, .day-cell, .emoji-opt{
+  touch-action:manipulation; -webkit-tap-highlight-color:transparent;
+}
+button:active, .nav-item:active, .bn-item:active, .icon-btn:active, .btn-primary:active, .btn-secondary:active, .btn-danger:active, .seg-btn:active, .emoji-opt:active, .cal-cell:active, .heat-cell:active, .task-check:active, .mini-check:active{
+  transform:scale(.94); transition:transform .08s ease;
+}
 .eyebrow{
   font-family:var(--font-mono); font-size:.68rem; letter-spacing:.07em;
   text-transform:uppercase; color:var(--muted); margin:0 0 4px;
@@ -76,11 +83,11 @@ button{font-family:inherit;}
 .view.is-active{display:block; animation:fadeUp .25s ease;}
 @keyframes fadeUp{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);} }
 
-.view-header{display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:20px; flex-wrap:wrap;}
-.view-header h1{font-size:1.3rem;}
+.view-header{display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:22px; flex-wrap:wrap;}
+.view-header h1{font-size:1.4rem;}
 
 /* ---------- Карточки ---------- */
-.card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px;}
+.card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:16px; box-shadow:var(--shadow);}
 .card-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:11px; gap:10px; flex-wrap:wrap;}
 .card-head h2{font-size:.92rem; font-weight:600;}
 .pill{font-family:var(--font-mono); font-size:.7rem; font-weight:600; background:var(--surface-2); color:var(--muted); padding:2px 8px; border-radius:20px;}
@@ -119,7 +126,7 @@ button{font-family:inherit;}
 
 .section-title{font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin:18px 0 8px;}
 .task-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px;}
-.task-item{display:flex; align-items:flex-start; gap:10px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md); padding:10px 12px;}
+.task-item{display:flex; align-items:flex-start; gap:10px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-md); padding:11px 13px; box-shadow:var(--shadow);}
 .task-item.is-done{opacity:.5;}
 .task-item.is-done .task-title{text-decoration:line-through;}
 .task-check{width:17px; height:17px; border-radius:5px; border:1.6px solid var(--border); flex-shrink:0; margin-top:1px; cursor:pointer; display:flex; align-items:center; justify-content:center;}
@@ -138,7 +145,7 @@ button{font-family:inherit;}
 
 /* ---------- Привычки — GitHub-style heatmap ---------- */
 .habit-list{display:flex; flex-direction:column; gap:10px;}
-.habit-card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:14px 16px;}
+.habit-card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:15px 17px; box-shadow:var(--shadow);}
 .habit-top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px;}
 .habit-name{display:flex; align-items:center; gap:9px; font-weight:600; font-size:.9rem;}
 .habit-icon{font-size:.95rem;}
@@ -159,32 +166,8 @@ button{font-family:inherit;}
 .habit-stat b{display:block; font-family:var(--font-mono); font-size:.92rem; color:var(--ink);}
 .habit-actions{display:flex; gap:2px;}
 
-/* ---------- Обучение ---------- */
-.learn-card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:14px 16px; margin-bottom:10px;}
-.learn-top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px;}
-.learn-title{font-weight:600; font-size:.9rem;}
-.topic-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px;}
-.topic-item{display:flex; align-items:center; gap:8px; font-size:.85rem;}
-.topic-add-row{display:flex; gap:8px; margin-top:10px;}
-.topic-add-row input{flex:1; background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius-sm); padding:6px 9px; font-size:.83rem; color:var(--ink);}
-.learn-meta-row{display:flex; align-items:center; justify-content:space-between; margin-top:10px; padding-top:10px; border-top:1px solid var(--border);}
-
-/* ---------- Фокус ---------- */
-.focus-card{text-align:center; padding:24px 16px;}
-.focus-timer-display{font-size:2.8rem; font-weight:700; margin-bottom:14px;}
-.focus-durations{display:flex; gap:7px; justify-content:center; margin:12px 0; flex-wrap:wrap;}
-.focus-controls{display:flex; gap:9px; justify-content:center; margin-top:14px;}
-.focus-card .field{max-width:240px; margin:0 auto 4px; text-align:left;}
-
-/* ---------- Цели ---------- */
-.goal-card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); padding:14px 16px; margin-bottom:10px;}
-.goal-top{display:flex; align-items:center; justify-content:space-between; gap:10px;}
-.goal-title{font-weight:600; font-size:.9rem;}
-.goal-deadline{font-size:.75rem; color:var(--muted); font-family:var(--font-mono); margin-top:2px;}
-.milestone-item{display:flex; align-items:center; gap:8px; font-size:.85rem;}
-
 /* ---------- Календарь ---------- */
-.cal-nav{display:flex; align-items:center; gap:6px;}
+.cal-nav{display:flex; align-items:center; gap:4px; flex-wrap:wrap;}
 .cal-month-label{font-weight:600; font-size:.87rem; min-width:130px; text-align:center;}
 .cal-weekdays{display:grid; grid-template-columns:repeat(7,1fr); gap:5px; margin-bottom:5px;}
 .cal-weekdays span{text-align:center; font-size:.68rem; color:var(--muted); font-weight:600;}
@@ -250,19 +233,46 @@ button{font-family:inherit;}
 @media (max-width: 860px){
   .app{grid-template-columns:1fr;}
   .sidebar{display:none;}
-  .content{padding:16px 12px 84px;}
+  .content{padding:14px 14px 90px;}
   .dash-grid{grid-template-columns:1fr;}
-  .cal-cell{font-size:.68rem;}
-  .cal-month-label{min-width:auto;}
+  .cal-cell{font-size:.7rem;}
+  .cal-month-label{min-width:auto; font-size:.82rem;}
+  .view-header{
+    margin-bottom:16px; position:sticky; top:0; z-index:20;
+    background:rgba(13,17,23,.92); backdrop-filter:blur(8px);
+    padding:calc(env(safe-area-inset-top) + 10px) 0 10px;
+  }
+  .view-header h1{font-size:1.25rem;}
+
+  /* Увеличенные зоны нажатия под палец */
+  .icon-btn{width:34px; height:34px;}
+  .icon-btn .ic{width:16px; height:16px;}
+  .task-check, .mini-check{width:20px; height:20px;}
+  .seg-btn{padding:8px 13px; font-size:.82rem;}
+  .heat-cell{width:12px; height:12px;}
+  .heatmap-grid{grid-template-rows:repeat(7, 12px);}
+  .emoji-opt{width:38px; height:38px;}
+
+  /* На iOS поле с font-size < 16px вызывает автозум при фокусе */
+  .field input, .field select, .field textarea{font-size:16px;}
 
   .bottom-nav{
     display:flex; position:fixed; bottom:0; left:0; right:0; z-index:50;
     background:var(--surface); border-top:1px solid var(--border);
-    padding:6px 6px calc(env(safe-area-inset-bottom) + 6px); justify-content:space-around;
+    padding:6px 2px calc(env(safe-area-inset-bottom) + 6px); justify-content:space-around;
   }
-  .bn-item{background:none; border:none; color:var(--muted); width:44px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center;}
-  .bn-item.is-active{color:var(--heat-4); background:var(--accent-soft);}
+  .bn-item{
+    background:none; border:none; color:var(--muted); flex:1; max-width:76px;
+    height:50px; border-radius:10px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
+  }
+  .bn-item span{font-size:.62rem; font-weight:600;}
+  .bn-item.is-active{color:var(--heat-4);}
   .bn-item .ic{width:20px; height:20px;}
+}
+
+@media (max-width: 400px){
+  .content{padding:12px 10px 88px;}
+  .card{padding:14px;}
 }
 
 .ic{width:18px; height:18px; display:inline-block;}
