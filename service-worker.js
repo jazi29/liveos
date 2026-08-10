@@ -4,7 +4,7 @@
    Р·РґРµСЃСЊ РєСЌС€РёСЂСѓСЋС‚СЃСЏ С‚РѕР»СЊРєРѕ СЃС‚Р°С‚РёС‡РµСЃРєРёРµ С„Р°Р№Р»С‹.
    ========================================================== */
 
-const CACHE_NAME = 'lifeos-cache-v3';
+const CACHE_NAME = 'lifeos-cache-v4';
 const APP_SHELL = [
   './',
   './index.html',
@@ -16,7 +16,8 @@ const APP_SHELL = [
   './js/calendar.js',
   './js/statistics.js',
   './js/app.js',
-  './manifest.json'
+  './manifest.json',
+  './images/wallpaper.jpg'
 ];
 
 self.addEventListener('install', (event) => {
