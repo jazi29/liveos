@@ -85,8 +85,8 @@ const Tasks = {
           </div>
         </div>
         <div class="task-actions">
-          <button class="icon-btn" data-act="edit"><svg class="ic"><use href="#ic-edit"/></svg></button>
-          <button class="icon-btn" data-act="delete"><svg class="ic"><use href="#ic-trash"/></svg></button>
+          <button class="icon-btn" data-act="edit"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-edit"/></svg></button>
+          <button class="icon-btn" data-act="delete"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-trash"/></svg></button>
         </div>`;
       li.querySelector('.task-check').addEventListener('click', () => this.toggleComplete(t.id));
       li.querySelector('[data-act="edit"]').addEventListener('click', () => this.openForm(t));

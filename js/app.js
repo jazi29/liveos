@@ -1,6 +1,6 @@
 /* ==========================================================
-   app.js — точка входа: переключение видов, тема, модалки/
-   тосты/подтверждения, настройки, регистрация service worker.
+   app.js — точка входа: переключение видов, модалки/тосты/
+   подтверждения, настройки, регистрация service worker.
    ========================================================== */
 
 const App = {
@@ -9,10 +9,6 @@ const App = {
     this.bindNav();
     this.bindTasksView();
     this.bindHabitsView();
-    this.bindLearningView();
-    this.bindGoalsView();
-    Focus.bindControls();
-    Focus.updateDisplay();
     Calendar.bindControls();
     this.bindSettingsView();
     this.bindModalShell();
@@ -50,15 +46,14 @@ const App = {
     document.getElementById('habit-add-btn').addEventListener('click', () => Habits.openForm());
   },
 
-  bindLearningView(){
-    document.getElementById('learning-add-btn').addEventListener('click', () => Learning.openForm());
-  },
-
-  bindGoalsView(){
-    document.getElementById('goal-add-btn').addEventListener('click', () => Goals.openForm());
-  },
-
   bindSettingsView(){
+    const nameInput = document.getElementById('settings-name-input');
+    nameInput.value = Store.getSettings().userName || '';
+    nameInput.addEventListener('change', () => {
+      Store.updateSettings({ userName: nameInput.value.trim() });
+      this.refreshAll();
+    });
+
     document.getElementById('settings-export-btn').addEventListener('click', () => {
       const json = Store.exportJSON();
       const blob = new Blob([json], { type:'application/json' });
@@ -78,6 +73,7 @@ const App = {
       reader.onload = () => {
         try{
           Store.importJSON(reader.result);
+          nameInput.value = Store.getSettings().userName || '';
           this.refreshAll();
           this.toast('Данные импортированы');
         }catch(err){
@@ -91,6 +87,7 @@ const App = {
     document.getElementById('settings-reset-btn').addEventListener('click', () => {
       this.confirm('Сбросить все данные? Это необратимо.', () => {
         Store.resetAll();
+        nameInput.value = Store.getSettings().userName || '';
         this.refreshAll();
         this.toast('Все данные сброшены');
       });
@@ -142,9 +139,6 @@ const App = {
     Tasks.render();
     Habits.render();
     Calendar.render();
-    Learning.render();
-    Focus.render();
-    Goals.render();
     Statistics.render();
   },
 

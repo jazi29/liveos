@@ -105,8 +105,8 @@ const Habits = {
             </div>
           </div>
           <div class="habit-actions">
-            <button class="icon-btn" data-act="edit"><svg class="ic"><use href="#ic-edit"/></svg></button>
-            <button class="icon-btn" data-act="delete"><svg class="ic"><use href="#ic-trash"/></svg></button>
+            <button class="icon-btn" data-act="edit"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-edit"/></svg></button>
+            <button class="icon-btn" data-act="delete"><svg class="ic" viewBox="0 0 24 24"><use href="#ic-trash"/></svg></button>
           </div>
         </div>
         <div class="heatmap-scroll">

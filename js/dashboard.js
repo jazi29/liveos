@@ -10,7 +10,8 @@ const Dashboard = {
 
     document.getElementById('dash-date').textContent =
       new Date().toLocaleDateString('ru-RU', { weekday:'long', month:'long', day:'numeric' });
-    document.getElementById('dash-greeting').textContent = this.greeting();
+    const name = (Store.getSettings().userName || '').trim();
+    document.getElementById('dash-greeting').textContent = name ? `${this.greeting()}, ${name}` : this.greeting();
 
     const todayTasks = data.tasks.filter(t => t.date === today);
     document.getElementById('dash-tasks-count').textContent = todayTasks.length;

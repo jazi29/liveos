@@ -8,12 +8,7 @@ const STORAGE_KEY = 'lifeos_data_v1';
 const DEFAULT_DATA = {
   tasks: [],
   habits: [],
-  learningProjects: [],
-  learningSessions: [],
-  focusSessions: [],
-  goals: [],
-  calendarEvents: [],
-  settings: { theme: 'light' }
+  settings: { userName: 'Жазира' }
 };
 
 const Store = {
@@ -22,7 +17,9 @@ const Store = {
       const raw = localStorage.getItem(STORAGE_KEY);
       if(!raw) return structuredClone(DEFAULT_DATA);
       const parsed = JSON.parse(raw);
-      return { ...structuredClone(DEFAULT_DATA), ...parsed };
+      const merged = { ...structuredClone(DEFAULT_DATA), ...parsed };
+      merged.settings = { ...structuredClone(DEFAULT_DATA.settings), ...(parsed.settings||{}) };
+      return merged;
     }catch(err){
       console.error('LifeOS: повреждённые данные, сброс к значениям по умолчанию.', err);
       return structuredClone(DEFAULT_DATA);

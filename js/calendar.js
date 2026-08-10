@@ -1,10 +1,10 @@
 /* ==========================================================
    calendar.js — личный календарь: месячная сетка, точки-
-   индикаторы задач/привычек/целей, панель выбранного дня.
+   индикаторы задач, панель выбранного дня.
    ========================================================== */
 
 const Calendar = {
-  viewDate: new Date(),   // месяц, который сейчас показан
+  viewDate: new Date(),
   selectedDate: Util.todayISO(),
 
   monthLabel(){
@@ -27,13 +27,11 @@ const Calendar = {
     this.render();
   },
 
-  /** Что запланировано на конкретную дату. */
   itemsForDate(iso){
     const data = Store.loadData();
     return {
       tasks: data.tasks.filter(t => t.date === iso),
-      habitsDone: data.habits.filter(h => (h.completedDates||[]).includes(iso)),
-      goals: data.goals.filter(g => g.deadline === iso)
+      habitsDone: data.habits.filter(h => (h.completedDates||[]).includes(iso))
     };
   },
 
@@ -46,7 +44,6 @@ const Calendar = {
     const year = this.viewDate.getFullYear();
     const month = this.viewDate.getMonth();
     const firstOfMonth = new Date(year, month, 1);
-    // Понедельник = 0 ... Воскресенье = 6
     const startOffset = (firstOfMonth.getDay() + 6) % 7;
     const startDate = new Date(year, month, 1 - startOffset);
 
@@ -62,7 +59,7 @@ const Calendar = {
       const isToday = iso === today;
       const isSelected = iso === this.selectedDate;
       const items = this.itemsForDate(iso);
-      const dotCount = Math.min(items.tasks.length + (items.goals.length?1:0), 4);
+      const dotCount = Math.min(items.tasks.length, 4);
 
       const cell = document.createElement('div');
       cell.className = 'cal-cell' + (isMuted?' is-muted':'') + (isToday?' is-today':'') + (isSelected?' is-selected':'');
@@ -71,7 +68,6 @@ const Calendar = {
       cell.addEventListener('click', () => this.selectDate(iso));
       grid.appendChild(cell);
 
-      // прекращаем рисовать лишнюю 6-ю неделю, если она целиком не текущий месяц и не нужна
       if(i === 34){
         const remainingAllMuted = Array.from({length:7}, (_,k) => {
           const d = new Date(startDate); d.setDate(startDate.getDate()+35+k);
@@ -109,11 +105,6 @@ const Calendar = {
     if(items.habitsDone.length){
       parts.push('<p class="section-title">Привычки выполнены</p>');
       parts.push('<ul class="mini-list">' + items.habitsDone.map(h => `<li class="mini-item is-done"><span class="mini-check">✓</span><span>${App.escapeHTML(h.name)}</span></li>`).join('') + '</ul>');
-    }
-
-    if(items.goals.length){
-      parts.push('<p class="section-title">Дедлайны целей</p>');
-      parts.push('<ul class="mini-list">' + items.goals.map(g => `<li class="mini-item"><span>🎯 ${App.escapeHTML(g.title)}</span></li>`).join('') + '</ul>');
     }
 
     if(parts.length === 0){
