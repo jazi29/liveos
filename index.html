@@ -1,302 +1,370 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>LifeOS — личный дашборд</title>
-<meta name="theme-color" content="#0D1117" />
-<link rel="manifest" href="manifest.json" />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%230D1117%22/><path d=%22M30 65 L50 30 L70 65 Z%22 fill=%22%2339D353%22/></svg>" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+    <title>LifeOS — личный дашборд</title>
+    <meta name="theme-color" content="#0D1117"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <link rel="apple-touch-icon" href="icons/icon-192.svg"/>
+    <link rel="manifest" href="manifest.json"/>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2224%22 fill=%22%230D1117%22/><path d=%22M30 65 L50 30 L70 65 Z%22 fill=%22%2339D353%22/></svg>"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
 
-<div class="app">
+    <div class="app">
 
-  <nav class="sidebar" aria-label="Основная навигация">
-    <div class="brand">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <span class="brand-name">LifeOS</span>
+        <nav class="sidebar" aria-label="Основная навигация">
+            <div class="brand">
+                <span class="brand-mark" aria-hidden="true"></span>
+                <span class="brand-name">LifeOS</span>
+            </div>
+
+            <ul class="nav-list" id="nav-list">
+                <li>
+                    <button class="nav-item is-active" data-view="dashboard">
+                        <svg class="ic" viewBox="0 0 24 24">
+                            <use href="#ic-home"/>
+                        </svg>
+                        <span>Дашборд</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-item" data-view="calendar">
+                        <svg class="ic" viewBox="0 0 24 24">
+                            <use href="#ic-calendar"/>
+                        </svg>
+                        <span>Календарь</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-item" data-view="tasks">
+                        <svg class="ic" viewBox="0 0 24 24">
+                            <use href="#ic-check"/>
+                        </svg>
+                        <span>Задачи</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-item" data-view="habits">
+                        <svg class="ic" viewBox="0 0 24 24">
+                            <use href="#ic-flame"/>
+                        </svg>
+                        <span>Привычки</span>
+                    </button>
+                </li>
+                <li>
+                    <button class="nav-item" data-view="statistics">
+                        <svg class="ic" viewBox="0 0 24 24">
+                            <use href="#ic-chart"/>
+                        </svg>
+                        <span>Статистика</span>
+                    </button>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <button class="nav-item" data-view="settings">
+                    <svg class="ic" viewBox="0 0 24 24">
+                        <use href="#ic-settings"/>
+                    </svg>
+                    <span>Настройки</span>
+                </button>
+            </div>
+        </nav>
+
+        <main class="content" id="content">
+
+            <!-- ДАШБОРД -->
+            <section class="view is-active" id="view-dashboard" data-view="dashboard">
+                <header class="view-header">
+                    <div>
+                        <p class="eyebrow" id="dash-date">Сегодня</p>
+                        <h1 id="dash-greeting">Добрый день</h1>
+                    </div>
+                </header>
+
+                <div class="card progress-hero">
+                    <p class="eyebrow">Прогресс дня</p>
+                    <p class="progress-number" id="dash-progress">0%</p>
+                    <div class="progress-bar">
+                        <div class="progress-bar-fill" id="dash-progress-fill" style="width:0%"></div>
+                    </div>
+                    <p class="muted" id="dash-progress-sub">Пока ничего не отмечено — начнём.</p>
+                </div>
+
+                <div class="dash-grid">
+                    <div class="card">
+                        <div class="card-head">
+                            <h2>Задачи на сегодня</h2>
+                            <span class="pill" id="dash-tasks-count">0</span>
+                        </div>
+                        <ul class="mini-list" id="dash-tasks-list"></ul>
+                    </div>
+                    <div class="card">
+                        <div class="card-head">
+                            <h2>Привычки на сегодня</h2>
+                            <span class="pill" id="dash-habits-count">0</span>
+                        </div>
+                        <ul class="mini-list" id="dash-habits-list"></ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- КАЛЕНДАРЬ -->
+            <section class="view" id="view-calendar" data-view="calendar">
+                <header class="view-header">
+                    <div>
+                        <h1>Календарь</h1>
+                    </div>
+                    <div class="cal-nav">
+                        <button class="icon-btn" id="cal-prev">‹</button>
+                        <span class="cal-month-label" id="cal-month-label"></span>
+                        <button class="icon-btn" id="cal-next">›</button>
+                        <button class="btn-secondary" id="cal-today-btn">Сегодня</button>
+                    </div>
+                </header>
+
+                <div class="cal-weekdays" id="cal-weekdays"></div>
+                <div class="cal-grid" id="cal-grid"></div>
+
+                <div class="card cal-day-panel" id="cal-day-panel">
+                    <div class="card-head">
+                        <h2 id="cal-selected-date">Выберите день</h2>
+                        <button class="btn-secondary" id="cal-add-task-btn">+ Задача на этот день</button>
+                    </div>
+                    <div id="cal-day-content"></div>
+                </div>
+            </section>
+
+            <!-- ЗАДАЧИ -->
+            <section class="view" id="view-tasks" data-view="tasks">
+                <header class="view-header">
+                    <div>
+                        <h1>Задачи</h1>
+                    </div>
+                    <button class="btn-primary" id="task-add-btn">+ Новая задача</button>
+                </header>
+
+                <div class="filter-row">
+                    <div class="segmented" id="task-filter-priority">
+                        <button class="seg-btn is-active" data-filter="all">Все</button>
+                        <button class="seg-btn" data-filter="Low">Низкий</button>
+                        <button class="seg-btn" data-filter="Medium">Средний</button>
+                        <button class="seg-btn" data-filter="High">Высокий</button>
+                    </div>
+                    <select class="select" id="task-sort">
+                        <option value="date">По дате</option>
+                        <option value="priority">По приоритету</option>
+                    </select>
+                </div>
+
+                <div class="task-section">
+                    <h2 class="section-title">Сегодня</h2>
+                    <ul class="task-list" id="tasks-today"></ul>
+                </div>
+                <div class="task-section">
+                    <h2 class="section-title">Предстоящие</h2>
+                    <ul class="task-list" id="tasks-upcoming"></ul>
+                </div>
+                <div class="task-section">
+                    <h2 class="section-title">Выполненные</h2>
+                    <ul class="task-list" id="tasks-completed"></ul>
+                </div>
+            </section>
+
+            <!-- ПРИВЫЧКИ -->
+            <section class="view" id="view-habits" data-view="habits">
+                <header class="view-header">
+                    <div>
+                        <h1>Привычки</h1>
+                    </div>
+                    <button class="btn-primary" id="habit-add-btn">+ Новая привычка</button>
+                </header>
+                <div class="habit-list" id="habit-list"></div>
+            </section>
+
+            <!-- СТАТИСТИКА -->
+            <section class="view" id="view-statistics" data-view="statistics">
+                <header class="view-header">
+                    <div>
+                        <h1>Статистика</h1>
+                    </div>
+                </header>
+
+                <div class="dash-grid">
+                    <div class="card stat-card">
+                        <p class="eyebrow">Задачи выполнены</p>
+                        <p class="stat-number mono" id="stat-tasks-rate">0%</p>
+                    </div>
+                    <div class="card stat-card">
+                        <p class="eyebrow">Привычки за 30 дней</p>
+                        <p class="stat-number mono" id="stat-habits-rate">0%</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top:12px">
+                    <div class="card-head">
+                        <h2>Задачи за 7 дней</h2>
+                    </div>
+                    <div class="bar-chart" id="chart-tasks"></div>
+                </div>
+                <div class="card" style="margin-top:12px">
+                    <div class="card-head">
+                        <h2>Привычки — текущие серии</h2>
+                    </div>
+                    <ul class="mini-list" id="chart-streaks"></ul>
+                </div>
+            </section>
+
+            <!-- НАСТРОЙКИ -->
+            <section class="view" id="view-settings" data-view="settings">
+                <header class="view-header">
+                    <div>
+                        <h1>Настройки</h1>
+                    </div>
+                </header>
+
+                <div class="card settings-card">
+                    <div class="settings-row">
+                        <div>
+                            <p class="settings-label">Ваше имя</p>
+                            <p class="muted">Как к вам обращаться в приветствии.</p>
+                        </div>
+                        <input type="text" class="select" id="settings-name-input" style="width:120px" placeholder="Имя">
+                    </div>
+                    <div class="settings-row">
+                        <div>
+                            <p class="settings-label">Экспорт данных</p>
+                            <p class="muted">Скачать всё в виде JSON-файла.</p>
+                        </div>
+                        <button class="btn-secondary" id="settings-export-btn">Экспорт</button>
+                    </div>
+                    <div class="settings-row">
+                        <div>
+                            <p class="settings-label">Импорт данных</p>
+                            <p class="muted">Восстановить из ранее экспортированного файла.</p>
+                        </div>
+                        <label class="btn-secondary file-btn">
+                            Импорт
+                            <input type="file" id="settings-import-input" accept="application/json" hidden>
+                        </label>
+                    </div>
+                    <div class="settings-row">
+                        <div>
+                            <p class="settings-label">Сбросить все данные</p>
+                            <p class="muted">Безвозвратно удалить всё, что хранится в этом браузере.</p>
+                        </div>
+                        <button class="btn-danger" id="settings-reset-btn">Сбросить</button>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <nav class="bottom-nav" aria-label="Мобильная навигация">
+            <button class="bn-item is-active" data-view="dashboard">
+                <svg class="ic" viewBox="0 0 24 24">
+                    <use href="#ic-home"/>
+                </svg>
+                <span>Дашборд</span>
+            </button>
+            <button class="bn-item" data-view="calendar">
+                <svg class="ic" viewBox="0 0 24 24">
+                    <use href="#ic-calendar"/>
+                </svg>
+                <span>Календарь</span>
+            </button>
+            <button class="bn-item" data-view="tasks">
+                <svg class="ic" viewBox="0 0 24 24">
+                    <use href="#ic-check"/>
+                </svg>
+                <span>Задачи</span>
+            </button>
+            <button class="bn-item" data-view="habits">
+                <svg class="ic" viewBox="0 0 24 24">
+                    <use href="#ic-flame"/>
+                </svg>
+                <span>Привычки</span>
+            </button>
+            <button class="bn-item" data-view="statistics">
+                <svg class="ic" viewBox="0 0 24 24">
+                    <use href="#ic-chart"/>
+                </svg>
+                <span>Статистика</span>
+            </button>
+        </nav>
     </div>
 
-    <ul class="nav-list" id="nav-list">
-      <li><button class="nav-item is-active" data-view="dashboard"><svg class="ic"><use href="#ic-home"/></svg><span>Дашборд</span></button></li>
-      <li><button class="nav-item" data-view="calendar"><svg class="ic"><use href="#ic-calendar"/></svg><span>Календарь</span></button></li>
-      <li><button class="nav-item" data-view="tasks"><svg class="ic"><use href="#ic-check"/></svg><span>Задачи</span></button></li>
-      <li><button class="nav-item" data-view="habits"><svg class="ic"><use href="#ic-flame"/></svg><span>Привычки</span></button></li>
-      <li><button class="nav-item" data-view="learning"><svg class="ic"><use href="#ic-book"/></svg><span>Обучение</span></button></li>
-      <li><button class="nav-item" data-view="focus"><svg class="ic"><use href="#ic-timer"/></svg><span>Фокус</span></button></li>
-      <li><button class="nav-item" data-view="goals"><svg class="ic"><use href="#ic-target"/></svg><span>Цели</span></button></li>
-      <li><button class="nav-item" data-view="statistics"><svg class="ic"><use href="#ic-chart"/></svg><span>Статистика</span></button></li>
-    </ul>
-
-    <div class="sidebar-footer">
-      <button class="nav-item" data-view="settings"><svg class="ic"><use href="#ic-settings"/></svg><span>Настройки</span></button>
+    <div class="modal-backdrop" id="modal-backdrop">
+        <div class="modal" id="modal" role="dialog" aria-modal="true">
+            <div class="modal-head">
+                <h2 id="modal-title">Новый элемент</h2>
+                <button class="modal-close" id="modal-close" aria-label="Закрыть">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+        </div>
     </div>
-  </nav>
 
-  <main class="content" id="content">
-
-    <!-- ДАШБОРД -->
-    <section class="view is-active" id="view-dashboard" data-view="dashboard">
-      <header class="view-header">
-        <div>
-          <p class="eyebrow" id="dash-date">Сегодня</p>
-          <h1 id="dash-greeting">Добрый день</h1>
+    <div class="modal-backdrop" id="confirm-backdrop">
+        <div class="modal modal-sm">
+            <div class="modal-body">
+                <p id="confirm-text">Вы уверены?</p>
+                <div class="modal-actions">
+                    <button class="btn-secondary" id="confirm-cancel">Отмена</button>
+                    <button class="btn-danger" id="confirm-ok">Удалить</button>
+                </div>
+            </div>
         </div>
-      </header>
-
-      <div class="card progress-hero">
-        <p class="eyebrow">Прогресс дня</p>
-        <p class="progress-number" id="dash-progress">0%</p>
-        <div class="progress-bar"><div class="progress-bar-fill" id="dash-progress-fill" style="width:0%"></div></div>
-        <p class="muted" id="dash-progress-sub">Пока ничего не отмечено — начнём.</p>
-      </div>
-
-      <div class="dash-grid">
-        <div class="card">
-          <div class="card-head"><h2>Задачи на сегодня</h2><span class="pill" id="dash-tasks-count">0</span></div>
-          <ul class="mini-list" id="dash-tasks-list"></ul>
-        </div>
-        <div class="card">
-          <div class="card-head"><h2>Привычки на сегодня</h2><span class="pill" id="dash-habits-count">0</span></div>
-          <ul class="mini-list" id="dash-habits-list"></ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- КАЛЕНДАРЬ -->
-    <section class="view" id="view-calendar" data-view="calendar">
-      <header class="view-header">
-        <div><p class="eyebrow">Календарь</p><h1>Личный календарь</h1></div>
-        <div class="cal-nav">
-          <button class="icon-btn" id="cal-prev">‹</button>
-          <span class="cal-month-label" id="cal-month-label"></span>
-          <button class="icon-btn" id="cal-next">›</button>
-          <button class="btn-secondary" id="cal-today-btn">Сегодня</button>
-        </div>
-      </header>
-
-      <div class="cal-weekdays" id="cal-weekdays"></div>
-      <div class="cal-grid" id="cal-grid"></div>
-
-      <div class="card cal-day-panel" id="cal-day-panel">
-        <div class="card-head">
-          <h2 id="cal-selected-date">Выберите день</h2>
-          <button class="btn-secondary" id="cal-add-task-btn">+ Задача на этот день</button>
-        </div>
-        <div id="cal-day-content"></div>
-      </div>
-    </section>
-
-    <!-- ЗАДАЧИ -->
-    <section class="view" id="view-tasks" data-view="tasks">
-      <header class="view-header">
-        <div><p class="eyebrow">Задачи</p><h1>Дела на сегодня и не только</h1></div>
-        <button class="btn-primary" id="task-add-btn">+ Новая задача</button>
-      </header>
-
-      <div class="filter-row">
-        <div class="segmented" id="task-filter-priority">
-          <button class="seg-btn is-active" data-filter="all">Все</button>
-          <button class="seg-btn" data-filter="Low">Низкий</button>
-          <button class="seg-btn" data-filter="Medium">Средний</button>
-          <button class="seg-btn" data-filter="High">Высокий</button>
-        </div>
-        <select class="select" id="task-sort">
-          <option value="date">По дате</option>
-          <option value="priority">По приоритету</option>
-        </select>
-      </div>
-
-      <div class="task-section">
-        <h2 class="section-title">Сегодня</h2>
-        <ul class="task-list" id="tasks-today"></ul>
-      </div>
-      <div class="task-section">
-        <h2 class="section-title">Предстоящие</h2>
-        <ul class="task-list" id="tasks-upcoming"></ul>
-      </div>
-      <div class="task-section">
-        <h2 class="section-title">Выполненные</h2>
-        <ul class="task-list" id="tasks-completed"></ul>
-      </div>
-    </section>
-
-    <!-- ПРИВЫЧКИ -->
-    <section class="view" id="view-habits" data-view="habits">
-      <header class="view-header">
-        <div><p class="eyebrow">Привычки</p><h1>Постоянство день за днём</h1></div>
-        <button class="btn-primary" id="habit-add-btn">+ Новая привычка</button>
-      </header>
-      <div class="habit-list" id="habit-list"></div>
-    </section>
-
-    <!-- ОБУЧЕНИЕ -->
-    <section class="view" id="view-learning" data-view="learning">
-      <header class="view-header">
-        <div><p class="eyebrow">Обучение</p><h1>Курсы и прогресс</h1></div>
-        <button class="btn-primary" id="learning-add-btn">+ Новый курс</button>
-      </header>
-      <div id="learning-list"></div>
-    </section>
-
-    <!-- ФОКУС -->
-    <section class="view" id="view-focus" data-view="focus">
-      <header class="view-header"><div><p class="eyebrow">Фокус</p><h1>Таймер глубокой работы</h1></div></header>
-
-      <div class="card focus-card">
-        <p class="focus-timer-display mono" id="focus-display">25:00</p>
-        <div class="field">
-          <label>Категория</label>
-          <select id="focus-category">
-            <option>Обучение</option>
-            <option>Работа</option>
-            <option>Чтение</option>
-            <option>Личное</option>
-            <option>Другое</option>
-          </select>
-        </div>
-        <div class="focus-durations" id="focus-durations">
-          <button class="seg-btn is-active" data-min="25">25 мин</button>
-          <button class="seg-btn" data-min="45">45 мин</button>
-          <button class="seg-btn" data-min="60">60 мин</button>
-          <button class="seg-btn" data-custom="1">своё</button>
-        </div>
-        <div class="focus-controls">
-          <button class="btn-primary" id="focus-start">Начать</button>
-          <button class="btn-secondary" id="focus-pause" disabled>Пауза</button>
-          <button class="btn-secondary" id="focus-reset">Сбросить</button>
-        </div>
-      </div>
-
-      <div class="dash-grid" style="margin-top:16px">
-        <div class="card stat-card"><p class="eyebrow">Сегодня</p><p class="stat-number mono" id="focus-today-time">0м</p></div>
-        <div class="card stat-card"><p class="eyebrow">Сессий сегодня</p><p class="stat-number mono" id="focus-today-count">0</p></div>
-      </div>
-
-      <h2 class="section-title">История сессий</h2>
-      <ul class="task-list" id="focus-history"></ul>
-    </section>
-
-    <!-- ЦЕЛИ -->
-    <section class="view" id="view-goals" data-view="goals">
-      <header class="view-header">
-        <div><p class="eyebrow">Цели</p><h1>Куда вы движетесь</h1></div>
-        <button class="btn-primary" id="goal-add-btn">+ Новая цель</button>
-      </header>
-      <div id="goal-list"></div>
-    </section>
-
-    <!-- СТАТИСТИКА -->
-    <section class="view" id="view-statistics" data-view="statistics">
-      <header class="view-header"><div><p class="eyebrow">Статистика</p><h1>Ваша динамика</h1></div></header>
-
-      <div class="dash-grid">
-        <div class="card stat-card"><p class="eyebrow">Задачи выполнены</p><p class="stat-number mono" id="stat-tasks-rate">0%</p></div>
-        <div class="card stat-card"><p class="eyebrow">Привычки за 30 дней</p><p class="stat-number mono" id="stat-habits-rate">0%</p></div>
-        <div class="card stat-card"><p class="eyebrow">Часы обучения</p><p class="stat-number mono" id="stat-learning-hours">0ч</p></div>
-        <div class="card stat-card"><p class="eyebrow">Часы фокуса</p><p class="stat-number mono" id="stat-focus-hours">0ч</p></div>
-      </div>
-
-      <div class="card" style="margin-top:16px">
-        <div class="card-head"><h2>Задачи за 7 дней</h2></div>
-        <div class="bar-chart" id="chart-tasks"></div>
-      </div>
-      <div class="card" style="margin-top:16px">
-        <div class="card-head"><h2>Обучение и фокус, минут за 7 дней</h2></div>
-        <div class="bar-chart" id="chart-focus"></div>
-      </div>
-      <div class="card" style="margin-top:16px">
-        <div class="card-head"><h2>Привычки — текущие серии</h2></div>
-        <ul class="mini-list" id="chart-streaks"></ul>
-      </div>
-    </section>
-
-    <!-- НАСТРОЙКИ -->
-    <section class="view" id="view-settings" data-view="settings">
-      <header class="view-header"><div><p class="eyebrow">Настройки</p><h1>Под себя</h1></div></header>
-
-      <div class="card settings-card">
-        <div class="settings-row">
-          <div><p class="settings-label">Экспорт данных</p><p class="muted">Скачать всё в виде JSON-файла.</p></div>
-          <button class="btn-secondary" id="settings-export-btn">Экспорт</button>
-        </div>
-        <div class="settings-row">
-          <div><p class="settings-label">Импорт данных</p><p class="muted">Восстановить из ранее экспортированного файла.</p></div>
-          <label class="btn-secondary file-btn">Импорт<input type="file" id="settings-import-input" accept="application/json" hidden></label>
-        </div>
-        <div class="settings-row">
-          <div><p class="settings-label">Сбросить все данные</p><p class="muted">Безвозвратно удалить всё, что хранится в этом браузере.</p></div>
-          <button class="btn-danger" id="settings-reset-btn">Сбросить</button>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <nav class="bottom-nav" aria-label="Мобильная навигация">
-    <button class="bn-item is-active" data-view="dashboard"><svg class="ic"><use href="#ic-home"/></svg></button>
-    <button class="bn-item" data-view="calendar"><svg class="ic"><use href="#ic-calendar"/></svg></button>
-    <button class="bn-item" data-view="tasks"><svg class="ic"><use href="#ic-check"/></svg></button>
-    <button class="bn-item" data-view="habits"><svg class="ic"><use href="#ic-flame"/></svg></button>
-    <button class="bn-item" data-view="settings"><svg class="ic"><use href="#ic-settings"/></svg></button>
-  </nav>
-</div>
-
-<div class="modal-backdrop" id="modal-backdrop">
-  <div class="modal" id="modal" role="dialog" aria-modal="true">
-    <div class="modal-head">
-      <h2 id="modal-title">Новый элемент</h2>
-      <button class="modal-close" id="modal-close" aria-label="Закрыть">&times;</button>
     </div>
-    <div class="modal-body" id="modal-body"></div>
-  </div>
-</div>
 
-<div class="modal-backdrop" id="confirm-backdrop">
-  <div class="modal modal-sm">
-    <div class="modal-body">
-      <p id="confirm-text">Вы уверены?</p>
-      <div class="modal-actions">
-        <button class="btn-secondary" id="confirm-cancel">Отмена</button>
-        <button class="btn-danger" id="confirm-ok">Удалить</button>
-      </div>
-    </div>
-  </div>
-</div>
+    <div class="toast-stack" id="toast-stack"></div>
 
-<div class="toast-stack" id="toast-stack"></div>
+    <svg width="0" height="0" style="position:absolute">
+        <defs>
+            <g id="ic-home">
+                <path d="M4 11.5 12 4l8 7.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 10v9h12v-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+            <g id="ic-calendar">
+                <rect x="4" y="5.5" width="16" height="14.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M4 10h16M8 3.5v3M16 3.5v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </g>
+            <g id="ic-check">
+                <rect x="4" y="4" width="16" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M8 12.5l2.5 2.5L16 9.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+            <g id="ic-flame">
+                <path d="M12 3s-5 4.5-5 9.5a5 5 0 0010 0c0-1.5-.7-2.4-1.2-3.2.2 1.6-1 2.4-1.6 1.7C15.4 9.7 16 7 12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            </g>
+            <g id="ic-chart">
+                <path d="M4 20V10M11 20V4M18 20v-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </g>
+            <g id="ic-settings">
+                <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M19.4 13.5a7.6 7.6 0 000-3l2-1.4-2-3.4-2.3.8a7.6 7.6 0 00-2.6-1.5L14 2.5h-4l-.5 2.5a7.6 7.6 0 00-2.6 1.5l-2.3-.8-2 3.4 2 1.4a7.6 7.6 0 000 3l-2 1.4 2 3.4 2.3-.8a7.6 7.6 0 002.6 1.5l.5 2.5h4l.5-2.5a7.6 7.6 0 002.6-1.5l2.3.8 2-3.4-2-1.4z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+            </g>
+            <g id="ic-trash">
+                <path d="M5 7h14M9 7V5.5A1.5 1.5 0 0110.5 4h3A1.5 1.5 0 0115 5.5V7m-8 0 .8 12.2A2 2 0 009.8 21h4.4a2 2 0 002-1.8L17 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+            <g id="ic-edit">
+                <path d="M4 20l.8-3.6L16.4 4.8a1.8 1.8 0 012.6 0l0 0a1.8 1.8 0 010 2.6L7.4 19 4 20z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            </g>
+        </defs>
+    </svg>
 
-<svg width="0" height="0" style="position:absolute">
-  <defs>
-    <g id="ic-home"><path d="M4 11.5 12 4l8 7.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10v9h12v-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
-    <g id="ic-calendar"><rect x="4" y="5.5" width="16" height="14.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 10h16M8 3.5v3M16 3.5v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></g>
-    <g id="ic-check"><rect x="4" y="4" width="16" height="16" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 12.5l2.5 2.5L16 9.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
-    <g id="ic-flame"><path d="M12 3s-5 4.5-5 9.5a5 5 0 0010 0c0-1.5-.7-2.4-1.2-3.2.2 1.6-1 2.4-1.6 1.7C15.4 9.7 16 7 12 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></g>
-    <g id="ic-book"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H12v16H5.5c-.8 0-1.5-.7-1.5-1.5v-13z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H12v16h6.5c.8 0 1.5-.7 1.5-1.5v-13z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></g>
-    <g id="ic-timer"><circle cx="12" cy="13" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 9v4l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 2.5h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></g>
-    <g id="ic-target"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="0.8" fill="currentColor"/></g>
-    <g id="ic-chart"><path d="M4 20V10M11 20V4M18 20v-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></g>
-    <g id="ic-settings"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M19.4 13.5a7.6 7.6 0 000-3l2-1.4-2-3.4-2.3.8a7.6 7.6 0 00-2.6-1.5L14 2.5h-4l-.5 2.5a7.6 7.6 0 00-2.6 1.5l-2.3-.8-2 3.4 2 1.4a7.6 7.6 0 000 3l-2 1.4 2 3.4 2.3-.8a7.6 7.6 0 002.6 1.5l.5 2.5h4l.5-2.5a7.6 7.6 0 002.6-1.5l2.3.8 2-3.4-2-1.4z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></g>
-    <g id="ic-sun"><circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.5M12 19v2.5M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2.5 12H5M19 12h2.5M4.2 19.8L6 18M18 6l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></g>
-    <g id="ic-trash"><path d="M5 7h14M9 7V5.5A1.5 1.5 0 0110.5 4h3A1.5 1.5 0 0115 5.5V7m-8 0 .8 12.2A2 2 0 009.8 21h4.4a2 2 0 002-1.8L17 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
-    <g id="ic-edit"><path d="M4 20l.8-3.6L16.4 4.8a1.8 1.8 0 012.6 0l0 0a1.8 1.8 0 010 2.6L7.4 19 4 20z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></g>
-  </defs>
-</svg>
-
-<script src="js/storage.js"></script>
-<script src="js/dashboard.js"></script>
-<script src="js/tasks.js"></script>
-<script src="js/habits.js"></script>
-<script src="js/calendar.js"></script>
-<script src="js/learning.js"></script>
-<script src="js/focus.js"></script>
-<script src="js/goals.js"></script>
-<script src="js/statistics.js"></script>
-<script src="js/app.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/tasks.js"></script>
+    <script src="js/habits.js"></script>
+    <script src="js/calendar.js"></script>
+    <script src="js/statistics.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
