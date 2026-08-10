@@ -32,13 +32,18 @@
 
 *{box-sizing:border-box;}
 html,body{height:100%;}
+html{overscroll-behavior-y:none;}
 body{
   margin:0;
   background:var(--bg);
   color:var(--ink);
   font-family:var(--font-body);
   -webkit-font-smoothing:antialiased;
+  overscroll-behavior-y:none;
+  -webkit-user-select:none; user-select:none;
 }
+input, textarea{ -webkit-user-select:text; user-select:text; }
+::-webkit-scrollbar{width:0; height:0;}
 h1,h2,h3{font-family:var(--font-display); margin:0; letter-spacing:-.015em; font-weight:700;}
 p{margin:0;}
 button{font-family:inherit;}
@@ -91,6 +96,18 @@ button:active, .nav-item:active, .bn-item:active, .icon-btn:active, .btn-primary
 .card-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:11px; gap:10px; flex-wrap:wrap;}
 .card-head h2{font-size:.92rem; font-weight:600;}
 .pill{font-family:var(--font-mono); font-size:.7rem; font-weight:600; background:var(--surface-2); color:var(--muted); padding:2px 8px; border-radius:20px;}
+
+/* ---------- Обои на дашборде ---------- */
+.wallpaper-hero{
+  position:relative; height:190px; border-radius:var(--radius-lg); overflow:hidden;
+  margin-bottom:16px; border:1px solid var(--border);
+  background-image:url('../images/wallpaper.jpg'); background-size:cover; background-position:center 22%;
+  display:flex; align-items:flex-end; padding:18px;
+}
+.wallpaper-overlay{position:absolute; inset:0; background:linear-gradient(180deg, rgba(13,17,23,.05) 35%, rgba(13,17,23,.88) 100%);}
+.wallpaper-text{position:relative; z-index:1;}
+.wallpaper-text .eyebrow{color:rgba(255,255,255,.7);}
+.wallpaper-text h1{color:#fff; font-size:1.5rem;}
 
 /* ---------- Дашборд ---------- */
 .progress-hero{margin-bottom:16px;}
@@ -228,6 +245,7 @@ button:active, .nav-item:active, .bn-item:active, .icon-btn:active, .btn-primary
 
 /* ---------- Нижняя навигация (моб.) ---------- */
 .bottom-nav{display:none;}
+.settings-fab{display:none;}
 
 /* ---------- Адаптив ---------- */
 @media (max-width: 860px){
@@ -268,6 +286,15 @@ button:active, .nav-item:active, .bn-item:active, .icon-btn:active, .btn-primary
   .bn-item span{font-size:.62rem; font-weight:600;}
   .bn-item.is-active{color:var(--heat-4);}
   .bn-item .ic{width:20px; height:20px;}
+
+  .settings-fab{
+    display:flex; align-items:center; justify-content:center;
+    position:fixed; top:calc(env(safe-area-inset-top) + 12px); right:14px; z-index:60;
+    width:38px; height:38px; border-radius:50%;
+    background:var(--surface); border:1px solid var(--border); color:var(--muted);
+    box-shadow:var(--shadow);
+  }
+  .settings-fab .ic{width:18px; height:18px;}
 }
 
 @media (max-width: 400px){
