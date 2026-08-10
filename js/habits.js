@@ -37,7 +37,7 @@ const Habits = {
     let cursor = new Date(); cursor.setHours(0,0,0,0);
     if(!dates.has(Util.todayISO())) cursor.setDate(cursor.getDate()-1);
     while(true){
-      const iso = cursor.toISOString().slice(0,10);
+      const iso = Util.formatLocal(cursor);
       if(dates.has(iso)){ streak++; cursor.setDate(cursor.getDate()-1); } else break;
     }
     return streak;
@@ -73,7 +73,7 @@ const Habits = {
     for(let i = totalCells - 1; i >= 0; i--){
       const d = new Date(todayDate);
       d.setDate(d.getDate() - i);
-      const iso = d.toISOString().slice(0,10);
+      const iso = Util.formatLocal(d);
       cells.push({ iso, done: dates.has(iso), isToday: iso === today, isFuture: d > todayDate });
     }
     return cells;

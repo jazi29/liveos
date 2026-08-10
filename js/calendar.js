@@ -54,7 +54,7 @@ const Calendar = {
     for(let i=0;i<42;i++){
       const cellDate = new Date(startDate);
       cellDate.setDate(startDate.getDate() + i);
-      const iso = cellDate.toISOString().slice(0,10);
+      const iso = Util.formatLocal(cellDate);
       const isMuted = cellDate.getMonth() !== month;
       const isToday = iso === today;
       const isSelected = iso === this.selectedDate;

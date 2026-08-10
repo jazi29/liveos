@@ -83,8 +83,15 @@ const Store = {
 
 const Util = {
   uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2, 8); },
-  todayISO(){ const d = new Date(); d.setHours(0,0,0,0); return d.toISOString().slice(0,10); },
-  isoDaysAgo(n){ const d = new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate()-n); return d.toISOString().slice(0,10); },
+  /** Форматирует дату в YYYY-MM-DD по ЛОКАЛЬНОМУ времени устройства (не UTC!). */
+  formatLocal(d){
+    const y = d.getFullYear();
+    const m = String(d.getMonth()+1).padStart(2,'0');
+    const day = String(d.getDate()).padStart(2,'0');
+    return `${y}-${m}-${day}`;
+  },
+  todayISO(){ return this.formatLocal(new Date()); },
+  isoDaysAgo(n){ const d = new Date(); d.setDate(d.getDate()-n); return this.formatLocal(d); },
   formatFriendlyDate(dateStr){
     if(!dateStr) return '';
     const d = new Date(dateStr + 'T00:00:00');
