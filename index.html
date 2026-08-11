@@ -84,6 +84,7 @@
             <!-- ДАШБОРД -->
             <section class="view is-active" id="view-dashboard" data-view="dashboard">
                 <div class="wallpaper-hero">
+                    <img class="wallpaper-img" src="images/wallpaper.jpg" alt=""/>
                     <div class="wallpaper-overlay"></div>
                     <div class="wallpaper-text">
                         <p class="eyebrow" id="dash-date">Сегодня</p>
@@ -142,6 +143,11 @@
                     </div>
                     <div id="cal-day-content"></div>
                 </div>
+
+                <div class="progress-section">
+                    <h2 class="section-title">Прогресс привычек</h2>
+                    <div id="cal-habit-progress"></div>
+                </div>
             </section>
 
             <!-- ЗАДАЧИ -->
@@ -153,6 +159,9 @@
                     <button class="btn-primary" id="task-add-btn">+ Новая задача</button>
                 </header>
 
+                <div class="filter-row">
+                    <input type="text" class="select task-search" id="task-search" placeholder="Поиск задач...">
+                </div>
                 <div class="filter-row">
                     <div class="segmented" id="task-filter-priority">
                         <button class="seg-btn is-active" data-filter="all">Все</button>
@@ -230,6 +239,11 @@
                     <div>
                         <h1>Настройки</h1>
                     </div>
+                    <button class="icon-btn back-btn" id="settings-back-btn" aria-label="Назад">
+                        <svg class="ic" viewBox="0 0 24 24">
+                            <use href="#ic-close"/>
+                        </svg>
+                    </button>
                 </header>
 
                 <div class="card settings-card">
@@ -300,14 +314,13 @@
                 </svg>
                 <span>Статистика</span>
             </button>
+            <button class="bn-item" data-view="settings">
+                <svg class="ic" viewBox="0 0 24 24">
+                    <use href="#ic-settings"/>
+                </svg>
+                <span>Настройки</span>
+            </button>
         </nav>
-
-        <!-- Плавающая кнопка настроек — доступна на телефоне с любой страницы -->
-        <button class="settings-fab" id="settings-fab" data-view="settings" aria-label="Настройки">
-            <svg class="ic" viewBox="0 0 24 24">
-                <use href="#ic-settings"/>
-            </svg>
-        </button>
     </div>
 
     <div class="modal-backdrop" id="modal-backdrop">
@@ -363,6 +376,9 @@
             </g>
             <g id="ic-edit">
                 <path d="M4 20l.8-3.6L16.4 4.8a1.8 1.8 0 012.6 0l0 0a1.8 1.8 0 010 2.6L7.4 19 4 20z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            </g>
+            <g id="ic-close">
+                <path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
             </g>
         </defs>
     </svg>
